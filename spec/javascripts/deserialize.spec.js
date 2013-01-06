@@ -1,4 +1,22 @@
 describe("deserializing an object into a form", function(){
+  describe("when the form tag cannot be found", function(){
+    var View = Backbone.View.extend({
+      render: function(){
+        this.$el.html("<input type='text' name='foo'>");
+      }
+    });
+
+    var view;
+
+    beforeEach(function(){
+      view = new View();
+      view.render();
+    });
+
+    it("should not throw an exception", function(){
+      expect(function(){ Backbone.Syphon.deserialize(view, { foo: "bar" }) }).not.toThrow();
+    });
+  });
 
   describe("when deserializing into a text input", function(){
     var View = Backbone.View.extend({

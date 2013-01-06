@@ -1,4 +1,22 @@
 describe("serializing a form", function(){
+  describe("when the form tag cannot be found", function(){
+    var View = Backbone.View.extend({
+      render: function(){
+        this.$el.html("<input type='text' name='foo' value='bar'>");
+      }
+    });
+
+    var view;
+
+    beforeEach(function(){
+      view = new View();
+      view.render();
+    });
+
+    it("should not throw an exception", function(){
+      expect(function(){ Backbone.Syphon.serialize(view) }).not.toThrow();
+    });
+  });
   
   describe("when serializing a text input", function(){
     var View = Backbone.View.extend({
